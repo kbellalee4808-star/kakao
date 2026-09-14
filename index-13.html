@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>멤버 소통 카톡 — 돈만 내고 안 쓰는 분에게</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#1B3A5C; --gold:#D4A94A; --ivory:#FAF7F2; --ash:#F1ECE3;
+    --ink:#1F2A3A; --mute:#6B7280; --line:#E3DCCF;
+    --bubble:#FFFFFF;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{overflow-anchor:none}
+  body{
+    font-family:'GmarketSans','Noto Sans KR',-apple-system,sans-serif;
+    background:var(--ivory); color:var(--ink);
+    padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+    word-break:keep-all; line-height:1.7;
+  }
+  .wrap{max-width:520px;margin:0 auto;padding:28px 18px 80px}
+
+  /* 헤더 */
+  header{padding:8px 0 22px;border-bottom:2px solid var(--navy)}
+  header h1{font-size:24px;font-weight:700;color:var(--navy);line-height:1.35;letter-spacing:-0.01em}
+  header p{margin-top:10px;font-size:14px;color:var(--mute)}
+  .order{margin-top:14px;padding:12px 14px;background:var(--ash);border-radius:12px;font-size:13.5px;color:var(--navy);font-weight:500}
+  .order b{color:var(--gold)}
+
+  /* 메시지 카드 */
+  .msg{padding:26px 0 8px;border-bottom:1px solid var(--line)}
+  .msg:last-of-type{border-bottom:0}
+  .step{display:flex;align-items:baseline;gap:10px}
+  .step .n{
+    flex:none;width:28px;height:28px;border-radius:50%;background:var(--navy);color:var(--gold);
+    font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;line-height:1;
+  }
+  .step h2{font-size:17px;font-weight:700;color:var(--navy)}
+  .when{margin:8px 0 12px 38px;font-size:13px;color:var(--mute)}
+  .when em{font-style:normal;color:var(--navy);font-weight:500}
+
+  .bubble{
+    position:relative;margin-left:38px;
+    background:var(--bubble);border:1.5px solid var(--line);border-radius:18px 18px 18px 4px;
+    padding:14px 16px;
+  }
+  .bubble:focus-within{border-color:var(--gold)}
+  textarea{
+    width:100%;border:0;background:transparent;resize:none;overflow:hidden;
+    font:inherit;font-size:15px;line-height:1.75;color:var(--ink);display:block;
+  }
+  textarea:focus{outline:none}
+  .tools{display:flex;gap:8px;margin:10px 0 0 38px;align-items:center}
+  button{
+    min-height:48px;padding:0 18px;border-radius:12px;border:0;cursor:pointer;
+    font:inherit;font-size:14.5px;font-weight:700;touch-action:manipulation;
+  }
+  .copy{background:var(--navy);color:#fff;flex:1}
+  .copy.done{background:var(--gold);color:var(--navy)}
+  .reset{background:transparent;color:var(--mute);border:1.5px solid var(--line);padding:0 14px;font-weight:500}
+  button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+  .edited{font-size:12px;color:var(--gold);margin-left:auto;display:none}
+  .msg.is-edited .edited{display:inline}
+
+  /* 하단 */
+  .foot{margin-top:36px;padding:16px;background:var(--ash);border-radius:14px;font-size:13px;color:var(--mute);line-height:1.8}
+  .foot b{color:var(--navy)}
+
+  @media (prefers-reduced-motion:no-preference){
+    .copy{transition:background .18s}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>돈만 내고 안 쓰는 분에게<br>보내는 카톡</h1>
+  <p>인사부터 예약 직전까지, 순서대로. 문구는 눌러서 고치고 복사하세요.</p>
+  <div class="order">순서는 <b>인사 → 포인트 확인 → 오픈방 → 질문 → 내 숫자 → 같이 가요</b>예요. 한 번에 할 일은 하나만.</div>
+</header>
+
+
+
+<section class="msg" data-i="0">
+  <div class="step"><span class="n">1</span><h2>첫 인사</h2></div>
+  <p class="when"><em>언제:</em> 처음 한 번. 바로 아래 2번을 이어서 보내도 돼요</p>
+  <div class="bubble"><textarea></textarea></div>
+  <div class="tools"><button class="copy" type="button">복사</button><button class="reset" type="button">원래대로</button><span class="edited">수정됨</span></div>
+</section>
+
+<section class="msg" data-i="1">
+  <div class="step"><span class="n">2</span><h2>포인트 먼저 확인해보세요</h2></div>
+  <p class="when"><em>언제:</em> 인사 바로 뒤에. 할 일은 이거 하나만</p>
+  <div class="bubble"><textarea></textarea></div>
+  <div class="tools"><button class="copy" type="button">복사</button><button class="reset" type="button">원래대로</button><span class="edited">수정됨</span></div>
+</section>
+
+<section class="msg" data-i="2">
+  <div class="step"><span class="n">3</span><h2>답이 오면, 여행 오픈방 초대</h2></div>
+  <p class="when"><em>언제:</em> 포인트 숫자를 알려주면. 밴드는 아직 안 권해요</p>
+  <div class="bubble"><textarea></textarea></div>
+  <div class="tools"><button class="copy" type="button">복사</button><button class="reset" type="button">원래대로</button><span class="edited">수정됨</span></div>
+</section>
+
+<section class="msg" data-i="3">
+  <div class="step"><span class="n">4</span><h2>다음 크루즈, 언제쯤?</h2></div>
+  <p class="when"><em>언제:</em> 오픈방 들어온 뒤. 정보 말고 질문</p>
+  <div class="bubble"><textarea></textarea></div>
+  <div class="tools"><button class="copy" type="button">복사</button><button class="reset" type="button">원래대로</button><span class="edited">수정됨</span></div>
+</section>
+
+<section class="msg" data-i="4">
+  <div class="step"><span class="n">5</span><h2>내 리워드로 갈 수 있는 크루즈</h2></div>
+  <p class="when"><em>언제:</em> 시기가 나오면. 숫자는 그 분 것으로 바꿔서</p>
+  <div class="bubble"><textarea></textarea></div>
+  <div class="tools"><button class="copy" type="button">복사</button><button class="reset" type="button">원래대로</button><span class="edited">수정됨</span></div>
+</section>
+
+<section class="msg" data-i="5">
+  <div class="step"><span class="n">6</span><h2>같이 가요, 그룹 크루즈 초대</h2></div>
+  <p class="when"><em>언제:</em> 혼자 예약은 안 해요. 잡혀 있는 배에 자리 하나를 권해요</p>
+  <div class="bubble"><textarea></textarea></div>
+  <div class="tools"><button class="copy" type="button">복사</button><button class="reset" type="button">원래대로</button><span class="edited">수정됨</span></div>
+</section>
+
+<section class="msg" data-i="6">
+  <div class="step"><span class="n">7</span><h2>예약 직전, 헷갈리는 화면</h2></div>
+  <p class="when"><em>언제:</em> 예약하겠다는 분에게만. 미리 보내면 어렵다는 인상만 남아요</p>
+  <div class="bubble"><textarea></textarea></div>
+  <div class="tools"><button class="copy" type="button">복사</button><button class="reset" type="button">원래대로</button><span class="edited">수정됨</span></div>
+</section>
+
+<section class="msg" data-i="7">
+  <div class="step"><span class="n">8</span><h2>답이 없을 때, 한 번만 더</h2></div>
+  <p class="when"><em>언제:</em> 일주일 지나도 조용하면. 이 뒤로는 안 보내요</p>
+  <div class="bubble"><textarea></textarea></div>
+  <div class="tools"><button class="copy" type="button">복사</button><button class="reset" type="button">원래대로</button><span class="edited">수정됨</span></div>
+</section>
+
+<section class="msg" data-i="8">
+  <div class="step"><span class="n">9</span><h2>한 달에 한 번, 한 줄</h2></div>
+  <p class="when"><em>언제:</em> 매달 청구서 나온 뒤. 길면 안 읽어요</p>
+  <div class="bubble"><textarea></textarea></div>
+  <div class="tools"><button class="copy" type="button">복사</button><button class="reset" type="button">원래대로</button><span class="edited">수정됨</span></div>
+</section>
+
+<div class="foot">
+  <b>[링크]</b> 자리에는 본인 링크를 넣어주세요. 고친 문구는 이 폰에 저장돼요.<br>
+  이미 멤버인 분에게만 보내는 문구예요. 파트너·수익 얘기는 없고, "챙겨드릴게요" 대신 "이렇게 하면 돼요" 톤이에요.
+</div>
+
+</div>
+
+<script>
+var BASE = [
+`안녕하세요 😊
+크루즈클럽 벨라예요.
+
+멤버십은 본인이 직접 써봐야 진짜 내 것이 돼요.
+저는 먼저 써본 사람으로서
+"이렇게 하면 되더라" 정도만 나눠드릴게요.
+궁금한 건 언제든 편하게 물어보세요.`,
+
+`앱 로그인 하셔서
+지금 포인트 얼마나 있으신지 먼저 확인해보세요 ^^`,
+
+`오, 그 정도면 벌써 갈 수 있는 배가 있어요 🛳️
+
+팀에서 같이 타는 크루즈 소식은
+여행 오픈방에 올려요.
+여기 들어와 계시면 놓치지 않아요 👉 https://open.kakao.com/o/grjrD4Sh`,
+
+`다음 크루즈는 언제쯤 생각하세요?
+내년 봄? 여름? 아니면 아직 막연한가요?
+
+날짜가 없어도 괜찮아요.
+"언젠가"를 "몇 월"로 바꿔두면
+그때부터 리워드가 진짜 내 돈처럼 보여요 😊`,
+
+`리워드 $0,000이면
+지중해 7박 인사이드 객실 1인분이 나와요.
+(내 자리는 리워드로, 동반자는 카드로 가능)
+
+출발 9개월 뒤 상품부터 쓸 수 있어서
+지금 잡으면 내년 OO월 출발이에요.
+
+계산해보고 싶으시면 여기서 👉 [링크]`,
+
+`저희 팀이 같이 타는 배가 있어요 🛳️
+
+📅 OO월 OO일 출발
+🚢 OOOO호 · O박 OOO 코스
+👥 지금 OO명 함께 가요
+
+혼자 예약하려면 막막한데
+같이 가면 처음도 어렵지 않아요.
+자리 하나 남겨둘까요?`,
+
+`예약 화면에서 딱 하나만 조심하세요.
+
+결제 화면에 두 가지가 같이 떠요.
+① INsider 17% 할인 — 리워드 안 쓰고 할인만
+② 리워드 포인트 사용 — 쌓인 리워드로 결제
+
+쌓아둔 리워드로 예약하시려면 ②를 고르셔야 해요.
+①을 누르면 리워드는 그대로 남고 카드로 다 나가요.
+
+헷갈리면 결제 누르기 전에 한 번 물어보세요.
+누른 뒤에는 되돌리기 어려워요.`,
+
+`바쁘셨죠? 😊
+지난번 얘기 부담 갖지 마세요.
+
+크루즈 생각나실 때 언제든 말 걸어주세요.
+저는 계속 배 위에 있어요 🛳️`,
+
+`이번 달 리워드 잘 쌓였죠? 🛳️`
+];
+
+var KEY = 'bella-member-talk-v4';
+var saved = {};
+try { saved = JSON.parse(localStorage.getItem(KEY) || '{}'); } catch (e) {}
+
+function autosize(t){ t.style.height='auto'; t.style.height=t.scrollHeight+'px'; }
+
+document.querySelectorAll('.msg').forEach(function(sec){
+  var i = +sec.dataset.i;
+  var ta = sec.querySelector('textarea');
+  ta.value = (saved[i] != null) ? saved[i] : BASE[i];
+  if (saved[i] != null && saved[i] !== BASE[i]) sec.classList.add('is-edited');
+  autosize(ta);
+  ta.addEventListener('input', function(){
+    autosize(ta);
+    sec.classList.toggle('is-edited', ta.value !== BASE[i]);
+    saved[i] = ta.value;
+    try { localStorage.setItem(KEY, JSON.stringify(saved)); } catch (e) {}
+  });
+  sec.querySelector('.copy').addEventListener('click', function(){
+    var btn = this;
+    var done = function(){ btn.textContent='복사됐어요'; btn.classList.add('done');
+      setTimeout(function(){ btn.textContent='복사'; btn.classList.remove('done'); }, 1400); };
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(ta.value).then(done, function(){ fallback(); done(); });
+    } else { fallback(); done(); }
+    function fallback(){ ta.focus(); ta.select(); try{ document.execCommand('copy'); }catch(e){} ta.blur(); }
+  });
+  sec.querySelector('.reset').addEventListener('click', function(){
+    ta.value = BASE[i]; autosize(ta); sec.classList.remove('is-edited');
+    delete saved[i];
+    try { localStorage.setItem(KEY, JSON.stringify(saved)); } catch (e) {}
+  });
+});
+
+window.addEventListener('resize', function(){ document.querySelectorAll('textarea').forEach(autosize); });
+</script>
+</body>
+</html>
